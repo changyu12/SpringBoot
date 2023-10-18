@@ -44,10 +44,42 @@ public class UserController {
 	}
 	
 	@GetMapping("/readdetail")
-	public String readdetail(Model model, @RequestParam ("username") String username) {
+	public String readdetail(Model model,
+							 @RequestParam String username) {
 		
-		model.addAttribute("user", userService.readdetail(username));
+		User user = userService.readdetail(username);
+		
+		model.addAttribute("user", user);
 		
 		return "user/readdetail";
 	}
+	
+	@GetMapping("/update")
+	public String update(Model model,@RequestParam String username) {
+		
+		
+		
+		
+		
+		 model.addAttribute("user",userService.readdetail(username));
+		
+		return "user/update";
+	}
+	
+	@PostMapping("/update")
+	public String update(User user) {
+		
+		userService.update(user);
+		
+		return "redirect:/user/readlist";
+	}
+	
+	@GetMapping("/delete")
+	public String delete(@RequestParam ("username") String username) {
+		
+		userService.delete(username);
+		
+		return "redirect:/user/readlist";
+	}
+	
 }
